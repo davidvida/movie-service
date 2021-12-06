@@ -1,0 +1,126 @@
+swagger: "2.0"
+info:
+  description: "This is the Task app server."
+  version: "1.0.0"
+  title: "Swagger TaskApp"
+  contact:
+    email: "classlifedavis@gmail.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+basePath: "/api/v1"
+tags:
+- name: "task"
+  description: "Endpoints for Task model"
+schemes:
+- "https"
+- "http"
+paths:
+  /task:
+    get:
+      tags:
+      - "task"
+      summary: "get the tasks list"
+      description: ""
+      operationId: "getTask"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        "201":
+          description: "Success"
+      security:
+      - taskapp_auth:
+        - "read:tasks"
+    post:
+      tags:
+      - "task"
+      summary: "Add a new task to the list"
+      description: ""
+      operationId: "addTask"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Task object that needs to be added to the list"
+        required: true
+        schema:
+          $ref: "#/definitions/Task"
+      responses:
+        "405":
+          description: "Invalid input"
+      security:
+      - taskapp_auth:
+        - "write:taks"
+        - "read:tasks"
+  /task/{taskId}:
+    put:
+      tags:
+      - "task"
+      summary: "Update an existing task"
+      description: ""
+      operationId: "updateTask"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "taskId"
+        in: "path"
+        description: "id of the task that need to be updated"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        description: "Task object that needs to be added to the store"
+        required: true
+        schema:
+          $ref: "#/definitions/Task"
+      responses:
+        "404":
+          description: "Task not found"
+        "405":
+          description: "Validation exception"
+      security:
+      - taskapp_auth:
+        - "write:pets"
+        - "read:pets"
+securityDefinitions:
+  taskapp_auth:
+    type: "oauth2"
+    authorizationUrl: "http://petstore.swagger.io/oauth/dialog"
+    flow: "implicit"
+    scopes:
+      write:tasks: "modify tasks in your account"
+      read:pets: "read your tasks"
+  api_key:
+    type: "apiKey"
+    name: "api_key"
+    in: "header"
+definitions:
+  Task:
+    type: "object"
+    properties:
+      _id:
+        type: "Object"
+      name:
+        type: "string"
+      decription:
+        type: "string"
+      startDate:
+        type: "string"
+        format: "date-time"
+      endDate:
+        type: "string"
+        format: "date-time"        
+      completed:
+        type: "boolean"
+        default: false
+      user:
+        type: "string"
+    xml:
+      name: "Task"
