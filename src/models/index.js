@@ -1,5 +1,5 @@
-const taskModel = require('./taskModel');
+const movieModel = require('./movieModel');
 
 module.exports ={
-  taskModel
+  movieModel
 }

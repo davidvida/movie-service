@@ -1,12 +1,12 @@
 const express = require('express')
 
-const { taskController } = require('../controllers');
+const { movieController } = require('../controllers');
 
 const router = express.Router()
 
-// tasks
-router.get('/task', taskController.getTasks);
-router.post('/task', taskController.postTask);
-router.put('/task/:id', taskController.putTask);
+// movies
+router.get('/movies', movieController.getMovies);
+router.post('/movies', movieController.postMovie);
+router.patch('/movies/:id', movieController.patchMovie);
 
 module.exports = router;

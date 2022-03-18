@@ -1,5 +1,5 @@
-const taskController = require('./taskController');
+const movieController = require('./movieController');
 
 module.exports ={
-  taskController
+  movieController
 }

@@ -1,8 +1,8 @@
 swagger: "2.0"
 info:
-  description: "This is the Task app server."
+  description: "Movie app rest api service."
   version: "1.0.0"
-  title: "Swagger TaskApp"
+  title: "Swagger MovieApp RestApi"
   contact:
     email: "classlifedavis@gmail.com"
   license:
@@ -10,19 +10,19 @@ info:
     url: "http://www.apache.org/licenses/LICENSE-2.0.html"
 basePath: "/api/v1"
 tags:
-- name: "task"
-  description: "Endpoints for Task model"
+- name: "movie"
+  description: "Endpoints for Movie model"
 schemes:
 - "https"
 - "http"
 paths:
-  /task:
+  /movies:
     get:
       tags:
-      - "task"
-      summary: "get the tasks list"
+      - "movie"
+      summary: "get the list of movies"
       description: ""
-      operationId: "getTask"
+      operationId: "getMovie"
       consumes:
       - "application/json"
       produces:
@@ -31,14 +31,14 @@ paths:
         "201":
           description: "Success"
       security:
-      - taskapp_auth:
-        - "read:tasks"
+      - movieapp_auth:
+        - "read:movies"
     post:
       tags:
-      - "task"
-      summary: "Add a new task to the list"
+      - "movie"
+      summary: "Add a new movie to the list"
       description: ""
-      operationId: "addTask"
+      operationId: "addMovie"
       consumes:
       - "application/json"
       produces:
@@ -46,81 +46,80 @@ paths:
       parameters:
       - in: "body"
         name: "body"
-        description: "Task object that needs to be added to the list"
+        description: "Movie object that needs to be added to the list"
         required: true
         schema:
-          $ref: "#/definitions/Task"
+          $ref: "#/definitions/Movie"
       responses:
         "405":
           description: "Invalid input"
       security:
-      - taskapp_auth:
+      - movieapp_auth:
         - "write:taks"
-        - "read:tasks"
-  /task/{taskId}:
-    put:
+        - "read:movies"
+  /movie/{movieId}:
+    patch:
       tags:
-      - "task"
-      summary: "Update an existing task"
+      - "movie"
+      summary: "Update an existing movie"
       description: ""
-      operationId: "updateTask"
+      operationId: "updateMovie"
       consumes:
       - "application/json"
       produces:
       - "application/json"
       parameters:
-      - name: "taskId"
+      - name: "movieId"
         in: "path"
-        description: "id of the task that need to be updated"
+        description: "id of the movie that need to be updated"
         required: true
         type: "string"
       - in: "body"
         name: "body"
-        description: "Task object that needs to be added to the store"
+        description: "Movie object that needs to be added to the store"
         required: true
         schema:
-          $ref: "#/definitions/Task"
+          $ref: "#/definitions/Movie"
       responses:
         "404":
-          description: "Task not found"
+          description: "Movie not found"
         "405":
           description: "Validation exception"
       security:
-      - taskapp_auth:
+      - movieapp_auth:
         - "write:pets"
         - "read:pets"
 securityDefinitions:
-  taskapp_auth:
+  movieapp_auth:
     type: "oauth2"
     authorizationUrl: "http://petstore.swagger.io/oauth/dialog"
     flow: "implicit"
     scopes:
-      write:tasks: "modify tasks in your account"
-      read:pets: "read your tasks"
+      write:movies: "modify movies in your account"
+      read:pets: "read your movies"
   api_key:
     type: "apiKey"
     name: "api_key"
     in: "header"
 definitions:
-  Task:
+  Movie:
     type: "object"
     properties:
       _id:
         type: "Object"
-      name:
+      title:
         type: "string"
       decription:
         type: "string"
-      startDate:
+      releaseDate:
         type: "string"
-        format: "date-time"
-      endDate:
+        format: "date"
+      status:
         type: "string"
-        format: "date-time"        
-      completed:
-        type: "boolean"
-        default: false
-      user:
-        type: "string"
+        default: "draft"
+      labels:
+        type: "array"
+        items:
+          type: string
     xml:
-      name: "Task"
+      name: "Movie"

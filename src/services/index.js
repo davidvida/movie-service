@@ -1,5 +1,5 @@
-const taskService = require('./taskService');
+const movieService = require('./movieService');
 
 module.exports ={
-  taskService
+  movieService
 };
