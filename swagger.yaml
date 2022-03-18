@@ -57,7 +57,7 @@ paths:
       - movieapp_auth:
         - "write:taks"
         - "read:movies"
-  /movie/{movieId}:
+  /movies/{movieId}:
     patch:
       tags:
       - "movie"
