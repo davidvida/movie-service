@@ -25,9 +25,11 @@ const movieSchema = new Schema({
 
 const MovieModel = mongoose.model('Movie', movieSchema);
 
-const find = async () => {
+const find = async (query) => {
+  let findParams = {};
+  if (query.title) findParams = { ...findParams, title : { '$regex': query.title, '$options': 'i' }};
   try {
-    const findResult = await MovieModel.find({});
+    const findResult = await MovieModel.find(findParams);
     return findResult;
   } catch(error) {
     console.log(error);

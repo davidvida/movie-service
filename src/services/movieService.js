@@ -1,8 +1,8 @@
 const { movieModel } = require('../models');
 
-const getMovies = async () => {
+const getMovies = async (query) => {
   try {
-    return await movieModel.find();
+    return await movieModel.find(query);
   } catch(e) {
     throw new Error(e.message);
   }

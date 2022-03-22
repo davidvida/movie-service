@@ -5,8 +5,7 @@ const { movieService } = require('../services')
 */
 const getMovies = async (req, res, next) => {
   try {
-    const movies = await movieService.getMovies();
-    // res.json(movies);
+    const movies = await movieService.getMovies(req.query);
     res.status(201).send(movies);
     next();
   } catch(e) {
