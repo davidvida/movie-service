@@ -1,8 +1,9 @@
 const groupObjectBy = (property, array) => {
-  let grouped = new Set
   return array.reduce((grouped, movie) => {
-    grouped[movie[property]] = grouped[movie[property]] || [];
-    grouped[movie[property]].push(movie);
+    movie[property].forEach(propertyValue => {
+      grouped[propertyValue.toLowerCase()] = grouped[propertyValue.toLowerCase()] || [];
+      grouped[propertyValue.toLowerCase()].push(movie);
+    });
     return grouped;
   }, Object.create(null));
 };
