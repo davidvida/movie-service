@@ -109,17 +109,24 @@ definitions:
         type: "Object"
       title:
         type: "string"
-      decription:
+      description:
         type: "string"
-      releaseDate:
-        type: "string"
-        format: "date"
+      date:
+        type: "number"
+        default: 2022
       status:
         type: "string"
-        default: "draft"
-      labels:
+        default: "available"
+      genres:
         type: "array"
         items:
           type: string
+      cast:
+        type: "array"
+        items:
+          type: string
+      imageUrl:
+        type: "string"
+        default: "available"
     xml:
       name: "Movie"

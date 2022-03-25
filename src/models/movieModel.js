@@ -5,6 +5,7 @@ const movieSchema = new Schema({
   title: {
     type: String,
     required: true,
+    unique: true
   },
   description: {
     type: String,
@@ -12,13 +13,25 @@ const movieSchema = new Schema({
   },
   status: {
     type: String,
-    default: 'draft'
+    default: 'available'
   },
-  labels: [String],
-  releaseDate: {
-    type: Date,
-    default: Date.now()
+  genres: {
+    type: [String],
+    default: ["default"]
   },
+  cast: {
+    type: [String],
+    default: [],
+    required: true
+  },
+  year: {
+    type: Number,
+    default: (new Date()).getFullYear()
+  },
+  imageUrl: {
+    type: String,
+    default: "https://images.unsplash.com/photo-1647968370378-6b8b64e847d6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80%22"
+  }
 },{
   versionKey: false
 });

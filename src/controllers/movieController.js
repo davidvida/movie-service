@@ -1,4 +1,5 @@
-const { movieService } = require('../services')
+const { movieService } = require('../services');
+const groupObjectBy = require('../utils/groupObjectBy');
 
 /*
  * call other imported services, or same service but different functions here if you need to
@@ -6,7 +7,8 @@ const { movieService } = require('../services')
 const getMovies = async (req, res, next) => {
   try {
     const movies = await movieService.getMovies(req.query);
-    res.status(201).send(movies);
+    const moviesGrouped = groupObjectBy('genres', movies);
+    res.status(201).send(moviesGrouped);
     next();
   } catch(e) {
     console.log(e.message);
