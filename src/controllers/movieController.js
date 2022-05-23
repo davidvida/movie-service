@@ -16,6 +16,18 @@ const getMovies = async (req, res, next) => {
   }
 }
 
+const getMovieById = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const movie = await movieService.getMovieById(id);
+    res.status(201).send(movie);
+    next();
+  } catch(e) {
+    console.log(e.message);
+    res.status(400).send({message: e.message});
+  }
+}
+
 const postMovie = async (req, res, next) => {
   const movie = { ...req.body };
   try {
@@ -45,6 +57,7 @@ const patchMovie = async (req, res, next) => {
 
 module.exports = {
   getMovies,
+  getMovieById,
   postMovie,
   patchMovie
 };

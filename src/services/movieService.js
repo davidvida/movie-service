@@ -8,6 +8,14 @@ const getMovies = async (query) => {
   }
 }
 
+const getMovieById = async (movieId) => {
+  try {
+    return await movieModel.findById(movieId);
+  } catch(e) {
+    throw new Error(e.message);
+  }
+}
+
 const createMovie = async (movie) => {
   try {
     return await movieModel.save(movie);
@@ -25,7 +33,8 @@ const updateMovie = async (id, movie) => {
 };
 
 module.exports = {
-  getMovies, 
+  getMovies,
+  getMovieById,
   createMovie,
   updateMovie
 };

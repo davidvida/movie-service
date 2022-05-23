@@ -31,6 +31,9 @@ const movieSchema = new Schema({
   imageUrl: {
     type: String,
     default: "https://images.unsplash.com/photo-1647968370378-6b8b64e847d6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80%22"
+  },
+  videoUrl: {
+    type: String
   }
 },{
   versionKey: false
@@ -43,6 +46,15 @@ const find = async (query) => {
   if (query.title) findParams = { ...findParams, title : { '$regex': query.title, '$options': 'i' }};
   try {
     const findResult = await MovieModel.find(findParams);
+    return findResult;
+  } catch(error) {
+    console.log(error);
+  }
+}
+
+const findById = async (id) => {
+  try {
+    const findResult = await MovieModel.findById(id);
     return findResult;
   } catch(error) {
     console.log(error);
@@ -71,6 +83,7 @@ const findByIdAndUpdate = async (id, movie) => {
 
 module.exports = {
   find,
+  findById,
   save,
   findByIdAndUpdate
 };

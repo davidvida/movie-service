@@ -55,9 +55,31 @@ paths:
           description: "Invalid input"
       security:
       - movieapp_auth:
-        - "write:taks"
+        - "write:movies"
         - "read:movies"
   /movies/{movieId}:
+    get:
+      tags:
+      - "movie"
+      summary: "get a movie related to the Id provided"
+      description: ""
+      operationId: "getMovieById"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "movieId"
+        in: "path"
+        description: "id of the movie that need to be updated"
+        required: true
+        type: "string"
+      responses:
+        "201":
+          description: "Success"
+      security:
+      - movieapp_auth:
+        - "read:movies"
     patch:
       tags:
       - "movie"
@@ -87,16 +109,16 @@ paths:
           description: "Validation exception"
       security:
       - movieapp_auth:
-        - "write:pets"
-        - "read:pets"
+        - "write:movies"
+        - "read:movies"
 securityDefinitions:
   movieapp_auth:
     type: "oauth2"
-    authorizationUrl: "http://petstore.swagger.io/oauth/dialog"
+    authorizationUrl: "http://movie-app.swagger.io/oauth/dialog"
     flow: "implicit"
     scopes:
-      write:movies: "modify movies in your account"
-      read:pets: "read your movies"
+      write:movies: "modify movies"
+      read:movies: "read movies"
   api_key:
     type: "apiKey"
     name: "api_key"
@@ -127,6 +149,7 @@ definitions:
           type: string
       imageUrl:
         type: "string"
-        default: "available"
+      videoUrl:
+        type: "string"
     xml:
       name: "Movie"
